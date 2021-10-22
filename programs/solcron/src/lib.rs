@@ -2,7 +2,7 @@ use anchor_lang::prelude::*;
 use anchor_lang::solana_program::clock::UnixTimestamp;
 use std::convert::Into;
 
-declare_id!("A4f4ZDWEPLXnY8jGhTY5JfZZG6CTRBi5ikgtpQ2pbv8g");
+declare_id!("AMPayzfbfW5SqMFCTGrR3x8q5nDv9G3TA9JCQtmSysx1");
 
 #[interface]
 pub trait Scheduled<'info, T: Accounts<'info>> {
@@ -25,13 +25,12 @@ pub mod solcron {
     //     Ok(())
     // }
 
-    pub fn run_task(ctx: Context<RunTask>) -> ProgramResult {
+    pub fn run_task<'info>(ctx: Context<'_, '_, '_, 'info, RunTask<'info>>) -> ProgramResult {
         let cpi_program = ctx.accounts.task_program.clone();
-        let cpi_ctx = CpiContext::new(cpi_program, Empty {});
-
-        // with args
+        // let cpi_program = ctx.remaining_accounts[0].clone();
         // let cpi_accounts = ctx.remaining_accounts.to_vec()[1..].to_vec();
-        // let cpi_ctx = CpiContext::new(cpi_program, cpi_accounts);
+        let cpi_accounts = ctx.remaining_accounts.to_vec();
+        let cpi_ctx = CpiContext::new(cpi_program, cpi_accounts);
 
         // TODO: check timing
 
@@ -54,7 +53,6 @@ pub struct RegisterTask {}
 #[derive(Accounts)]
 pub struct RunTask<'info> {
     pub task_program: AccountInfo<'info>,
-    
     // fee account (PDA?)
     // signers to transfer from account
 }

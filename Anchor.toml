@@ -9,5 +9,5 @@ wallet = "/Users/hariank/.config/solana/id.json"
 test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
 
 [programs.localnet]
-solcron = "A4f4ZDWEPLXnY8jGhTY5JfZZG6CTRBi5ikgtpQ2pbv8g"
-example_task = "5aKgwdNbhhRfxTinWwEw8FKA81Mg1e79CJUjCMzt2EnY"
+solcron = "AMPayzfbfW5SqMFCTGrR3x8q5nDv9G3TA9JCQtmSysx1"
+example_task = "J5hWrzLGjNNGVL5CLwYUYaV3Q6zgjxpZgUHcBgh28r2p"

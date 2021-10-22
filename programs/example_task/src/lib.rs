@@ -3,7 +3,7 @@ use std::convert::Into;
 
 use solcron::Scheduled;
 
-declare_id!("5aKgwdNbhhRfxTinWwEw8FKA81Mg1e79CJUjCMzt2EnY");
+declare_id!("J5hWrzLGjNNGVL5CLwYUYaV3Q6zgjxpZgUHcBgh28r2p");
 
 #[program]
 pub mod example_task {
@@ -13,6 +13,7 @@ pub mod example_task {
         let counter = &mut ctx.accounts.counter;
         counter.authority = authority;
         counter.count = 0;
+        msg!(&format!("{{ \"create\": \"{}\" \"{}\" \"{}\" }}", counter.key(), counter.count, counter.authority));
         Ok(())
     }
 
@@ -37,6 +38,7 @@ pub mod example_task {
         fn run_scheduled(ctx: Context<IncrementUnsafe<'info>>) -> ProgramResult {
             let counter = &mut ctx.accounts.counter;
             counter.count += 1;
+            msg!(&format!("{{ \"increment\": \"{}\" \"{}\" \"{}\" }}", counter.key(), counter.count, counter.authority));
             Ok(())
         }
     }
