@@ -481,6 +481,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "example_task"
+version = "0.1.0"
+dependencies = [
+ "anchor-lang",
+ "solcron",
+ "vipers",
+]
+
+[[package]]
 name = "feature-probe"
 version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1031,14 +1040,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "sol-cron"
-version = "0.1.0"
-dependencies = [
- "anchor-lang",
- "vipers",
-]
-
-[[package]]
 name = "solana-frozen-abi"
 version = "1.7.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1127,6 +1128,14 @@ dependencies = [
  "quote",
  "rustversion",
  "syn",
+]
+
+[[package]]
+name = "solcron"
+version = "0.1.0"
+dependencies = [
+ "anchor-lang",
+ "vipers",
 ]
 
 [[package]]
