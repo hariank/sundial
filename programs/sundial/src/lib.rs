@@ -2,7 +2,7 @@ use anchor_lang::prelude::*;
 use anchor_lang::solana_program::clock::Clock;
 use std::convert::Into;
 
-declare_id!("AMPayzfbfW5SqMFCTGrR3x8q5nDv9G3TA9JCQtmSysx1");
+declare_id!("D8Eqftpam9F6nygDLVudKfiPZU4XNLnj8QmoeX4iYMVP");
 
 #[interface]
 pub trait Scheduled<'info, T: Accounts<'info>> {
@@ -10,7 +10,7 @@ pub trait Scheduled<'info, T: Accounts<'info>> {
 }
 
 #[program]
-pub mod solcron {
+pub mod sundial {
     use super::*;
 
     pub fn register_task(

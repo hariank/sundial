@@ -1,11 +1,11 @@
 import * as anchor from "@project-serum/anchor";
 import { strict as assert } from "assert";
 
-describe("sol_cron", () => {
+describe("sundial", () => {
   const provider = anchor.Provider.env();
   anchor.setProvider(provider);
 
-  const solcronProgram = anchor.workspace.Solcron;
+  const sundialProgram = anchor.workspace.Sundial;
   const counterProgram = anchor.workspace.ExampleTask;
 
   const counter = anchor.web3.Keypair.generate();
@@ -34,7 +34,7 @@ describe("sol_cron", () => {
     [specAccountKey, specAccountBump] =
       await anchor.web3.PublicKey.findProgramAddress(
         [counterProgram.programId.toBuffer()],
-        solcronProgram.programId
+        sundialProgram.programId
       );
     console.log("Spec account: ", specAccountKey, specAccountBump);
   });
@@ -43,7 +43,7 @@ describe("sol_cron", () => {
     const startTs = new anchor.BN(Date.now() / 1000 - 5);
     const intervalTs = new anchor.BN(startTs.toNumber() + 10);
 
-    await solcronProgram.rpc.registerTask(
+    await sundialProgram.rpc.registerTask(
       new anchor.BN(specAccountBump),
       counterProgram.programId,
       startTs,
@@ -59,7 +59,7 @@ describe("sol_cron", () => {
       }
     );
 
-    const specAccount = await solcronProgram.account.taskSpecification.fetch(
+    const specAccount = await sundialProgram.account.taskSpecification.fetch(
       specAccountKey
     );
     console.log("Spec account data:\n", specAccount);
@@ -70,7 +70,7 @@ describe("sol_cron", () => {
   });
 
   it("run", async () => {
-    await solcronProgram.rpc.runTask({
+    await sundialProgram.rpc.runTask({
       accounts: {
         taskProgram: counterProgram.programId,
         taskSpecification: specAccountKey,
@@ -86,7 +86,7 @@ describe("sol_cron", () => {
     );
     assert.ok(counterAccount.count.toNumber() == 1);
 
-    const specAccount = await solcronProgram.account.taskSpecification.fetch(
+    const specAccount = await sundialProgram.account.taskSpecification.fetch(
       specAccountKey
     );
     console.log("Spec account data:\n", specAccount);
@@ -96,9 +96,9 @@ describe("sol_cron", () => {
   it("run invalid - program and spec mismatch", async () => {
     await assert.rejects(
       async () => {
-        await solcronProgram.rpc.runTask({
+        await sundialProgram.rpc.runTask({
           accounts: {
-            taskProgram: solcronProgram.programId,
+            taskProgram: sundialProgram.programId,
             taskSpecification: specAccountKey,
             clock: anchor.web3.SYSVAR_CLOCK_PUBKEY,
           },
@@ -114,7 +114,7 @@ describe("sol_cron", () => {
     );
   });
 
-  it("run early", async () => {});
+  it("run early", async () => { });
 
-  it("run off schedule", async () => {});
+  it("run off schedule", async () => { });
 });
